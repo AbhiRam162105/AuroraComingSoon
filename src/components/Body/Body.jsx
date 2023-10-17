@@ -1,11 +1,55 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import axios from "axios";
 import Loader from "../Loader/Loader.jsx";
-import CustomCursor from "../Cursor/Cursor.jsx";
-// import "./loader.js"; // Import your JavaScript files here
-// import "./logic.js";
 
 const Body = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const handleInputChange = (e) => {
+    // Handle input changes
+    const { name, value } = e.target;
+    if (name === "firstName") {
+      setFirstName(e.target.value);
+    } else if (name === "lastName") {
+      setLastName(value);
+    } else if (name === "email") {
+      setEmail(value);
+    } else if (name === "phone") {
+      setPhone(value);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      phone: phone,
+    };
+
+    try {
+      
+      const response = await axios.post(
+        "https://aurora-nokc.onrender.com/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json", 
+          },
+        }
+      );
+      console.log("Form data sent successfully:", response.data);
+    } catch (error) {
+      console.error("Error sending form data:", error);
+    }
+  };
+
   useEffect(() => {
     var background = document.querySelector(".background");
     var party_image = document.querySelector(".party_image");
@@ -352,6 +396,9 @@ const Body = () => {
                     <input
                       type="text"
                       id="firstName"
+                      value={firstName}
+                      name="firstName"
+                      onChange={handleInputChange}
                       className="focus"
                       autoComplete="off"
                       required=""
@@ -363,6 +410,9 @@ const Body = () => {
                     <input
                       type="text"
                       id="lastName"
+                      value={lastName}
+                      name="lastName"
+                      onChange={handleInputChange}
                       className="focus"
                       autoComplete="off"
                       required=""
@@ -373,6 +423,9 @@ const Body = () => {
                     <input
                       type="email"
                       id="email"
+                      value={email}
+                      name="email"
+                      onChange={handleInputChange}
                       className="focus"
                       autoComplete="off"
                       required=""
@@ -384,6 +437,9 @@ const Body = () => {
                     <input
                       type="text"
                       id="phone"
+                      value={phone}
+                      name="phone"
+                      onChange={handleInputChange}
                       className="focus"
                       autoComplete="off"
                       required=""
@@ -391,7 +447,11 @@ const Body = () => {
                   </div>
                 </div>
                 <div className="submClass">
-                  <button className="regButton" id="regButton">
+                  <button
+                    className="regButton"
+                    id="regButton"
+                    onClick={handleSubmit}
+                  >
                     <p>Submit</p>
                   </button>
                 </div>
@@ -400,8 +460,6 @@ const Body = () => {
           </div>
         </div>
       </div>
-      <script src="./loader.js"></script>
-      <script src="./logic.js"></script>
     </>
   );
 };
