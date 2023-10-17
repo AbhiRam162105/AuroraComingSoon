@@ -382,7 +382,7 @@ const Body = () => {
                   <div className="field">
                     <label htmlFor="phone"> Phone</label>
                     <input
-                      type="number"
+                      type="text"
                       id="phone"
                       className="focus"
                       autoComplete="off"
