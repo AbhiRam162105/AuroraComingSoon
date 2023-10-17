@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
+import { useState } from "react";
 import Loader from "../Loader/Loader.jsx";
+import CustomCursor from "../Cursor/Cursor.jsx";
 // import "./loader.js"; // Import your JavaScript files here
 // import "./logic.js";
 
@@ -165,10 +167,14 @@ const Body = () => {
     window.addEventListener("mousemove", move);
   }, []);
 
-  
- 
+  const [loading, setLoading] = useState(true);
 
-
+  useEffect(() => {
+    // Simulate a loading delay
+    setTimeout(() => {
+      setLoading(false);
+    }, 4500); // Adjust the delay time as needed
+  }, []);
 
   return (
     <>
