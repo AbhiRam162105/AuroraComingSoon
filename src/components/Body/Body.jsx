@@ -2,29 +2,52 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import Loader from "../Loader/Loader.jsx";
+import toast, { Toaster } from "react-hot-toast";
 
 const Body = () => {
+  const [field, setField] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
+  const [emailLabel, setEmailLabel] = useState("Email");
+  const [firstNameLabel, setFirstNameLabel] = useState("First Name");
+  const [lastNameLabel, setLastNameLabel] = useState("Last Name");
+  const [phoneLabel, setPhoneLabel] = useState("Phone");
+
   const handleInputChange = (e) => {
-    // Handle input changes
     const { name, value } = e.target;
+
+    if (value === "") {
+      setEmailLabel("Email");
+    }
+
+    if (e.target.value) {
+    }
+    if (name === "") {
+      setEmailLabel("Email");
+    }
+
     if (name === "firstName") {
       setFirstName(e.target.value);
+      setFirstNameLabel("");
     } else if (name === "lastName") {
       setLastName(value);
+      setLastNameLabel("");
     } else if (name === "email") {
       setEmail(value);
+      setEmailLabel("");
     } else if (name === "phone") {
       setPhone(value);
+      setPhoneLabel("");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setVisibleAlert(true);
 
     const formData = {
       first_name: firstName,
@@ -34,19 +57,20 @@ const Body = () => {
     };
 
     try {
-      
       const response = await axios.post(
         "https://aurora-nokc.onrender.com/register",
         formData,
         {
           headers: {
-            "Content-Type": "application/json", 
+            "Content-Type": "application/json",
           },
         }
       );
       console.log("Form data sent successfully:", response.data);
+      toast.success("Registered Succesfully");
     } catch (error) {
       console.error("Error sending form data:", error);
+      toast.error("Not registered");
     }
   };
 
@@ -70,121 +94,234 @@ const Body = () => {
     var img_grid = document.querySelector(".img_grid");
     var image = document.querySelector(".image");
     video_player.pause();
-
     var alpha = 1;
+    var form = document.querySelector(".formContainer");
     img_grid.style.filter = `opacity(${alpha})`;
     image.style.filter = `opacity(${alpha})`;
+    console.log(window.height);
 
-    window.addEventListener("scroll", () => {
-      document.querySelector(".intro").style.position = "fixed";
-      document.querySelector(".intro").style.top = "200px";
-      const scrollPosition = window.scrollY;
-      alpha = 1 - Math.min(1, (scrollPosition - 156) / 156);
-      img_grid.style.filter = `opacity(${alpha})`;
-      image.style.filter = `opacity(${alpha})`;
-      img_grid.style.filter = `opacity(${alpha})`;
-      image.style.filter = `opacity(${alpha})`;
+    if (screen.height >= 700) {
+      {
+        window.addEventListener("scroll", () => {
+          document.querySelector(".intro").style.position = "fixed";
+          document.querySelector(".intro").style.top = "200px";
+          const scrollPosition = window.scrollY;
+          alpha = 1 - Math.min(1, (scrollPosition - 156) / 156);
+          img_grid.style.filter = `opacity(${alpha})`;
+          image.style.filter = `opacity(${alpha})`;
+          img_grid.style.filter = `opacity(${alpha})`;
+          image.style.filter = `opacity(${alpha})`;
+          console.log(scrollPosition);
+          if (scrollPosition < 1000) {
+            background.style.position = "sticky";
+            background.style.top = "0px";
+            background.style.backgroundSize = `${100 + scrollPosition / 120}% ${
+              100 + scrollPosition / 120
+            }%`;
+            text.style.backdropFilter = `brightness(${
+              100 + (70 * (scrollPosition - 333)) / 667
+            }%)`;
 
-      if (scrollPosition < 1000) {
-        background.style.position = "sticky";
-        background.style.top = "0px";
-        background.style.backgroundSize = `${100 + scrollPosition / 120}% ${
-          100 + scrollPosition / 120
-        }%`;
-        text.style.backdropFilter = `brightness(${
-          100 + (70 * (scrollPosition - 333)) / 667
-        }%)`;
+            auroratext.style.cssText = `top:${
+              35 - (10 * scrollPosition) / 667
+            }%;transform:scale(${
+              1 - (0.2 * scrollPosition) / 667
+            });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
+            after_text.style.cssText = `top:${Math.max(
+              35,
+              51 - (16 * (scrollPosition - 333)) / 334
+            )}%;transform:scale(${
+              1 - (0.2 * scrollPosition) / 667
+            });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
+          } else if (scrollPosition > 1000 && scrollPosition < 1831) {
+            background.style.position = "relative";
+            background.style.top = "900px";
+          } else if (scrollPosition > 1831 && scrollPosition < 2100) {
+            introhead.style.color = `rgba(255,255,255,${Math.min(
+              1,
+              (scrollPosition - 1831) / 200
+            )})`;
+            introhead.style.fontSize = `${Math.min(
+              5.8,
+              (5.02 * scrollPosition) / 1831
+            )}rem`;
+          } else if (scrollPosition > 2100 && scrollPosition < 2400) {
+            introhead.style.marginTop = `${Math.max(
+              -18,
+              (-18 * (scrollPosition - 2100)) / 300
+            )}vh`;
+            introhead.style.fontSize = `${Math.min(
+              5.8,
+              5.8 * (1 - (scrollPosition - 2100) / 3000)
+            )}rem`;
+          } else if (scrollPosition > 2400 && scrollPosition < 2750) {
+            discription.style.color = `rgba(255,255,255,${
+              (scrollPosition - 2400) / 750
+            })`;
+            document.querySelector(".intro").style.position = "fixed";
+            document.querySelector(".intro").style.top = "200px";
+            video_player.setAttribute("controls", false);
+            video_player.pause();
+          } else if (scrollPosition > 2750) {
+            document.querySelector(".intro").style.position = "relative";
+            document.querySelector(".intro").style.top = "1900px";
+            video_player.setAttribute("controls", true);
+            video_player.play();
+            video.style.filter = `opacity(${Math.min(
+              1,
+              (scrollPosition - 2750) / 400
+            )})`;
+          }
 
-        auroratext.style.cssText = `top:${
-          35 - (10 * scrollPosition) / 667
-        }%;transform:scale(${
-          1 - (0.2 * scrollPosition) / 667
-        });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
-        after_text.style.cssText = `top:${Math.max(
-          35,
-          51 - (16 * (scrollPosition - 333)) / 334
-        )}%;transform:scale(${
-          1 - (0.2 * scrollPosition) / 667
-        });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
-      } else if (scrollPosition > 1000 && scrollPosition < 1831) {
-        background.style.position = "relative";
-        background.style.top = "900px";
-      } else if (scrollPosition > 1831 && scrollPosition < 2100) {
-        console.log("hey");
-        introhead.style.color = `rgba(255,255,255,${Math.min(
-          1,
-          (scrollPosition - 1831) / 200
-        )})`;
-        introhead.style.fontSize = `${Math.min(
-          5.8,
-          (5.02 * scrollPosition) / 1831
-        )}rem`;
-      } else if (scrollPosition > 2100 && scrollPosition < 2400) {
-        console.log("moving we are back");
-        introhead.style.marginTop = `${Math.max(
-          -18,
-          (-18 * (scrollPosition - 2100)) / 300
-        )}vh`;
-        introhead.style.fontSize = `${Math.min(
-          5.8,
-          5.8 * (1 - (scrollPosition - 2100) / 3000)
-        )}rem`;
-      } else if (scrollPosition > 2400 && scrollPosition < 2750) {
-        console.log("discription comes in");
-        discription.style.color = `rgba(255,255,255,${
-          (scrollPosition - 2400) / 750
-        })`;
+          if (scrollPosition > 3400) {
+            video_player.pause();
+            video.style.filter = `opacity(${Math.max(
+              0,
+              (3700 - scrollPosition) / 300
+            )})`;
+          }
+          if (scrollPosition > 3700) {
+            counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${
+              (scrollPosition - 3700) / 300
+            }), rgb(255,155,0,${(scrollPosition - 3700) / 500}));
+            -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;`;
+          }
+          if (scrollPosition > 3750) {
+            function incrementor(cls, start, end, duration) {
+              let obj = document.querySelector(`.${cls}`),
+                current = start,
+                range = end - start,
+                increment = end > start ? 25 : -25,
+                step = Math.abs(Math.floor(duration / range)),
+                timer = setInterval(() => {
+                  current += increment;
+                  obj.textContent = current + "+";
+                  if (current == end) {
+                    clearInterval(timer);
+                    reg.value = 1;
+                  }
+                }, step);
+            }
+            if (reg.value == 0) {
+              incrementor("reg_counter", 0, 4000, 1);
+            }
+          }
+        });
+      }
+    } else if (screen.height <= 700) {
+      window.addEventListener("scroll", () => {
+        console.log(" lhell");
         document.querySelector(".intro").style.position = "fixed";
         document.querySelector(".intro").style.top = "200px";
-        video_player.setAttribute("controls", false);
-        video_player.pause();
-      } else if (scrollPosition > 2750) {
-        document.querySelector(".intro").style.position = "relative";
-        document.querySelector(".intro").style.top = "1900px";
-        video_player.setAttribute("controls", true);
-        video_player.play();
-        video.style.filter = `opacity(${Math.min(
-          1,
-          (scrollPosition - 2750) / 400
-        )})`;
-      }
+        const scrollPosition = 0.7 * window.scrollY;
+        console.log(scrollPosition);
+        alpha = 1 - Math.min(1, (scrollPosition - 156) / 156);
+        img_grid.style.filter = `opacity(${alpha})`;
+        image.style.filter = `opacity(${alpha})`;
+        img_grid.style.filter = `opacity(${alpha})`;
+        image.style.filter = `opacity(${alpha})`;
+        if (scrollPosition < 653) {
+          background.style.position = "sticky";
+          background.style.top = "0px";
+          background.style.backgroundSize = `${100 + scrollPosition / 120}% ${
+            100 + scrollPosition / 120
+          }%`;
+          text.style.backdropFilter = `brightness(${
+            100 + (70 * (scrollPosition - 333)) / 667
+          }%)`;
+          auroratext.style.cssText = `top:${
+            35 - (10 * scrollPosition) / 667
+          }%;transform:scale(${
+            1 - (0.2 * scrollPosition) / 667
+          });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
+          after_text.style.cssText = `top:${Math.max(
+            35,
+            51 - (16 * (scrollPosition - 333)) / 334
+          )}%;transform:scale(${
+            1 - (0.2 * scrollPosition) / 667
+          });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
+        } else if (scrollPosition > 653 && scrollPosition < 933) {
+          background.style.position = "relative";
+          background.style.top = "850px";
+          introhead.style.color = `rgba(255,255,255,${Math.min(
+            1,
+            (scrollPosition - 700) / 200
+          )})`;
+          introhead.style.fontSize = `${Math.min(
+            5.8,
+            (5.02 * scrollPosition) / 931
+          )}rem`;
+        } else if (scrollPosition > 840 && scrollPosition < 1353) {
+          introhead.style.marginTop = `${Math.max(
+            -50,
+            (-50 * (scrollPosition - 840)) / 500
+          )}vh`;
+          introhead.style.fontSize = `${Math.min(
+            5.8,
+            5.8 * (1 - (scrollPosition - 840) / 3000)
+          )}rem`;
+        } else if (scrollPosition > 1353 && scrollPosition < 1600) {
+          discription.style.color = `rgba(255,255,255,${
+            (scrollPosition - 1353) / 750
+          })`;
+          document.querySelector(".intro").style.position = "fixed";
+          document.querySelector(".intro").style.top = "200px";
+          video_player.setAttribute("controls", false);
+          video_player.pause();
+        } else if (scrollPosition > 1600) {
+          document.querySelector(".intro").style.position = "relative";
+          document.querySelector(".intro").style.top = "2010px";
+          video_player.setAttribute("controls", true);
 
-      if (scrollPosition > 3400) {
-        video_player.pause();
-        video.style.filter = `opacity(${Math.max(
-          0,
-          (3700 - scrollPosition) / 300
-        )})`;
-      }
-      if (scrollPosition > 3700) {
-        counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${
-          (scrollPosition - 3700) / 300
-        }), rgb(255,155,0,${(scrollPosition - 3700) / 500}));
-        -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;`;
-      }
-      if (scrollPosition > 3750) {
-        function incrementor(cls, start, end, duration) {
-          let obj = document.querySelector(`.${cls}`),
-            current = start,
-            range = end - start,
-            increment = end > start ? 25 : -25,
-            step = Math.abs(Math.floor(duration / range)),
-            timer = setInterval(() => {
-              current += increment;
-              obj.textContent = current + "+";
-              if (current == end) {
-                clearInterval(timer);
-                reg.value = 1;
-              }
-            }, step);
+          video.style.filter = `opacity(${Math.min(
+            1,
+            (scrollPosition - 1600) / 300
+          )})`;
         }
-        if (reg.value == 0) {
-          incrementor("reg_counter", 0, 4000, 1);
+        if (scrollPosition > 1715) {
+          video_player.play();
         }
-      }
-    });
 
+        if (scrollPosition > 1900) {
+          video_player.pause();
+          video.style.filter = `opacity(${Math.max(
+            0,
+            (2210 - scrollPosition) / 300
+          )})`;
+        }
+        if (scrollPosition > 2000) {
+          counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${
+            (scrollPosition - 2000) / 300
+          }), rgb(255,155,0,${(scrollPosition - 2000) / 500}));
+            -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;`;
+        }
+        if (scrollPosition > 2100) {
+          function incrementor(cls, start, end, duration) {
+            let obj = document.querySelector(`.${cls}`),
+              current = start,
+              range = end - start,
+              increment = end > start ? 25 : -25,
+              step = Math.abs(Math.floor(duration / range)),
+              timer = setInterval(() => {
+                current += increment;
+                obj.textContent = current + "+";
+                if (current == end) {
+                  clearInterval(timer);
+                  reg.value = 1;
+                }
+              }, step);
+          }
+          if (scrollPosition > 2200) {
+            form.style.filter = `opacity(${(scrollPosition - 2200) / 200})`;
+          }
+          if (reg.value == 0) {
+            incrementor("reg_counter", 0, 4000, 1);
+          }
+        }
+      });
+    }
     function move(event) {
       let rect = text.getBoundingClientRect();
       let centerX = rect.width / 2 - rect.left;
@@ -223,6 +360,7 @@ const Body = () => {
   return (
     <>
       {loading ? <Loader /> : null}
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="megaa" style={{ display: "none" }}>
         <div className="contain">
           <div id="wrapper" data-configuration="1" data-roundness="1">
@@ -391,7 +529,7 @@ const Body = () => {
                 <div className="input-control">
                   <div className="field">
                     <label className="input-label" htmlFor="firstName">
-                      First Name
+                      {firstNameLabel}
                     </label>
                     <input
                       type="text"
@@ -406,7 +544,7 @@ const Body = () => {
                   </div>
 
                   <div className="field">
-                    <label htmlFor="lastName"> Last Name</label>
+                    <label htmlFor="lastName"> {lastNameLabel}</label>
                     <input
                       type="text"
                       id="lastName"
@@ -419,7 +557,7 @@ const Body = () => {
                     />
                   </div>
                   <div className="field">
-                    <label htmlFor="email"> Email</label>
+                    <label htmlFor="email"> {emailLabel}</label>
                     <input
                       type="email"
                       id="email"
@@ -433,7 +571,7 @@ const Body = () => {
                   </div>
 
                   <div className="field">
-                    <label htmlFor="phone"> Phone</label>
+                    <label htmlFor="phone">{phoneLabel}</label>
                     <input
                       type="text"
                       id="phone"
