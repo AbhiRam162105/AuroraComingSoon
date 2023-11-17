@@ -6,16 +6,24 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Body = () => {
   const [field, setField] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [college, setCollege] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [VisibleAlert, setVisibleAlert] = useState(false);
 
   const [emailLabel, setEmailLabel] = useState("Email");
-  const [firstNameLabel, setFirstNameLabel] = useState("First Name");
-  const [lastNameLabel, setLastNameLabel] = useState("Last Name");
+  const [nameLabel, setNameLabel] = useState("Name");
+  const [dateLabel, setDateLabel] = useState("Date");
   const [phoneLabel, setPhoneLabel] = useState("Phone");
+  const [cityLabel, setCityLabel] = useState("City");
+  const [collegeLabel, setCollegeLabel] = useState("College");
+  const [confirmPasswordLabel, setConfirmPasswordLabel] = useState("ConfirmPassword");
+  const [passwordLabel, setPasswordLabel] = useState("Password");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,12 +38,12 @@ const Body = () => {
       setEmailLabel("Email");
     }
 
-    if (name === "firstName") {
-      setFirstName(e.target.value);
-      setFirstNameLabel("");
-    } else if (name === "lastName") {
-      setLastName(value);
-      setLastNameLabel("");
+    if (name === "name") {
+      setName(e.target.value);
+      setNameLabel("");
+    } else if (name === "date") {
+      setDate(value);
+      setDateLabel("");
     } else if (name === "email") {
       setEmail(value);
       setEmailLabel("");
@@ -43,7 +51,47 @@ const Body = () => {
       setPhone(value);
       setPhoneLabel("");
     }
+    else if (name === "city") {
+      setCity(value);
+      setCityLabel("");
+    }
+    else if (name === "college") {
+      setCollege(value);
+      setCollegeLabel("");
+    }
+    else if (name === "password") {
+      setPassword(value);
+      setPasswordLabel("");
+    }
+    else if (name === "confirmPassword") {
+      setConfirmPassword(value);
+      setConfirmPasswordLabel("");
+    }
   };
+
+  let currentStep = 1;
+
+  const nextStep = (current, next) => {
+    document.getElementById(`step${current}`).style.display = 'none';
+    document.getElementById(`step${next}`).style.display = 'block';
+    currentStep = next;
+  };
+
+  const prevStep = (current, prev) => {
+    document.getElementById(`step${current}`).style.display = 'none';
+    document.getElementById(`step${prev}`).style.display = 'block';
+    currentStep = prev;
+  };
+
+
+
+
+
+
+
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,10 +99,13 @@ const Body = () => {
     setVisibleAlert(true);
 
     const formData = {
-      first_name: firstName,
-      last_name: lastName,
+      name: name,
       email: email,
       phone: phone,
+      DOB: date,
+      city: phone,
+      college: college,
+      password: password,
     };
 
     try {
@@ -116,30 +167,25 @@ const Body = () => {
           if (scrollPosition < 1000) {
             background.style.position = "sticky";
             background.style.top = "0px";
-            background.style.backgroundSize = `${100 + scrollPosition / 120}% ${
-              100 + scrollPosition / 120
-            }%`;
-            text.style.backdropFilter = `brightness(${
-              100 + (70 * (scrollPosition - 333)) / 667
-            }%)`;
+            background.style.backgroundSize = `${100 + scrollPosition / 120}% ${100 + scrollPosition / 120
+              }%`;
+            text.style.backdropFilter = `brightness(${100 + (70 * (scrollPosition - 333)) / 667
+              }%)`;
 
-            auroratext.style.cssText = `top:${
-              35 - (10 * scrollPosition) / 667
-            }%;transform:scale(${
-              1 - (0.2 * scrollPosition) / 667
-            });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
+            auroratext.style.cssText = `top:${35 - (10 * scrollPosition) / 667
+              }%;transform:scale(${1 - (0.2 * scrollPosition) / 667
+              });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
             after_text.style.cssText = `top:${Math.max(
               35,
               51 - (16 * (scrollPosition - 333)) / 334
-            )}%;transform:scale(${
-              1 - (0.2 * scrollPosition) / 667
-            });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
-          } 
-          else if(scrollPosition>653 && scrollPosition<1000){
-            introhead.style.color="black"
-            video_player.style.filter="opacity(0)"
+            )}%;transform:scale(${1 - (0.2 * scrollPosition) / 667
+              });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
           }
-            else if (scrollPosition > 1000 && scrollPosition < 1831) {
+          else if (scrollPosition > 653 && scrollPosition < 1000) {
+            introhead.style.color = "black"
+            video_player.style.filter = "opacity(0)"
+          }
+          else if (scrollPosition > 1000 && scrollPosition < 1831) {
             background.style.position = "relative";
             background.style.top = "535px";
           } else if (scrollPosition > 1831 && scrollPosition < 2100) {
@@ -161,9 +207,8 @@ const Body = () => {
               5.8 * (1 - (scrollPosition - 2100) / 3000)
             )}rem`;
           } else if (scrollPosition > 2400 && scrollPosition < 2750) {
-            discription.style.color = `rgba(255,255,255,${
-              (scrollPosition - 2400) / 750
-            })`;
+            discription.style.color = `rgba(255,255,255,${(scrollPosition - 2400) / 750
+              })`;
             document.querySelector(".intro").style.position = "fixed";
             document.querySelector(".intro").style.top = "200px";
             video_player.setAttribute("controls", false);
@@ -187,9 +232,8 @@ const Body = () => {
             )})`;
           }
           if (scrollPosition > 3700) {
-            counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${
-              (scrollPosition - 3700) / 300
-            }), rgb(255,155,0,${(scrollPosition - 3700) / 500}));
+            counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${(scrollPosition - 3700) / 300
+              }), rgb(255,155,0,${(scrollPosition - 3700) / 500}));
             -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;`;
           }
@@ -227,29 +271,24 @@ const Body = () => {
         image.style.filter = `opacity(${alpha})`;
         img_grid.style.filter = `opacity(${alpha})`;
         image.style.filter = `opacity(${alpha})`;
-          form.style.cssText += "transform:scale(0);";
-        
+        form.style.cssText += "transform:scale(0);";
+
 
         if (scrollPosition < 653) {
           background.style.position = "sticky";
           background.style.top = "0px";
-          background.style.backgroundSize = `${100 + scrollPosition / 120}% ${
-            100 + scrollPosition / 120
-          }%`;
-          text.style.backdropFilter = `brightness(${
-            100 + (70 * (scrollPosition - 333)) / 667
-          }%)`;
-          auroratext.style.cssText = `top:${
-            35 - (10 * scrollPosition) / 667
-          }%;transform:scale(${
-            1 - (0.2 * scrollPosition) / 667
-          });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
+          background.style.backgroundSize = `${100 + scrollPosition / 120}% ${100 + scrollPosition / 120
+            }%`;
+          text.style.backdropFilter = `brightness(${100 + (70 * (scrollPosition - 333)) / 667
+            }%)`;
+          auroratext.style.cssText = `top:${35 - (10 * scrollPosition) / 667
+            }%;transform:scale(${1 - (0.2 * scrollPosition) / 667
+            });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
           after_text.style.cssText = `top:${Math.max(
             35,
             51 - (16 * (scrollPosition - 333)) / 334
-          )}%;transform:scale(${
-            1 - (0.2 * scrollPosition) / 667
-          });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
+          )}%;transform:scale(${1 - (0.2 * scrollPosition) / 667
+            });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
         } else if (scrollPosition > 653 && scrollPosition < 933) {
           background.style.position = "absolute";
           background.style.top = "180px";
@@ -271,9 +310,8 @@ const Body = () => {
             5.8 * (1 - (scrollPosition - 840) / 3000)
           )}rem`;
         } else if (scrollPosition > 1353 && scrollPosition < 1600) {
-          discription.style.color = `rgba(255,255,255,${
-            (scrollPosition - 1353) / 750
-          })`;
+          discription.style.color = `rgba(255,255,255,${(scrollPosition - 1353) / 750
+            })`;
           document.querySelector(".intro").style.position = "fixed";
           document.querySelector(".intro").style.top = "200px";
           video_player.setAttribute("controls", false);
@@ -300,9 +338,8 @@ const Body = () => {
           )})`;
         }
         if (scrollPosition > 2000) {
-          counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${
-            (scrollPosition - 2000) / 300
-          }), rgb(255,155,0,${(scrollPosition - 2000) / 500}));
+          counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${(scrollPosition - 2000) / 300
+            }), rgb(255,155,0,${(scrollPosition - 2000) / 500}));
             -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;`;
           form.style.cssText += "transform:scale(0);";
@@ -538,16 +575,16 @@ const Body = () => {
               </div>
 
               <form>
-                <div className="input-control">
+                <div className="input-control tab" id="step1">
                   <div className="field">
-                    <label className="input-label" htmlFor="firstName">
-                      {firstNameLabel}
+                    <label className="input-label" htmlFor="name">
+                      {nameLabel}
                     </label>
                     <input
                       type="text"
-                      id="firstName"
-                      value={firstName}
-                      name="firstName"
+                      id="name"
+                      value={name}
+                      name="name"
                       onChange={handleInputChange}
                       className="focus"
                       autoComplete="off"
@@ -556,12 +593,12 @@ const Body = () => {
                   </div>
 
                   <div className="field">
-                    <label htmlFor="lastName"> {lastNameLabel}</label>
+                    <label htmlFor="DOB"> {dateLabel}</label>
                     <input
-                      type="text"
-                      id="lastName"
-                      value={lastName}
-                      name="lastName"
+                      type="date"
+                      id="date"
+                      value={date}
+                      name="date"
                       onChange={handleInputChange}
                       className="focus"
                       autoComplete="off"
@@ -595,16 +632,82 @@ const Body = () => {
                       required=""
                     />
                   </div>
+                  <div className="submClass">
+                    <button className="regButton"
+                      id="regButton" onClick={(event) => {event.preventDefault(); nextStep(1, 2);}}>NEXT</button>
+                  </div>
                 </div>
-                <div className="submClass">
-                  <button
-                    className="regButton"
-                    id="regButton"
-                    onClick={handleSubmit}
-                  >
-                    <p>Submit</p>
-                  </button>
+                <div className="input-control control2 tab" id="step2" style={{ display: 'none' }}>
+                  <div className="field">
+                    <label className="input-label" htmlFor="city">
+                      {cityLabel}
+                    </label>
+                    <input
+                      type="text"
+                      id="city"
+                      value={city}
+                      name="city"
+                      onChange={handleInputChange}
+                      className="focus"
+                      autoComplete="off"
+                      required=""
+                    />
+                  </div>
+
+                  <div className="field">
+                    <label htmlFor="college"> {collegeLabel}</label>
+                    <input
+                      type="text"
+                      id="college"
+                      value={college}
+                      name="college"
+                      onChange={handleInputChange}
+                      className="focus"
+                      autoComplete="off"
+                      required=""
+                    />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="password"> {passwordLabel}</label>
+                    <input
+                      type="password"
+                      id="password"
+                      value={password}
+                      name="password"
+                      onChange={handleInputChange}
+                      className="focus"
+                      autoComplete="off"
+                      required=""
+                    />
+                  </div>
+
+                  <div className="field">
+                    <label htmlFor="confirmPassword">{confirmPasswordLabel}</label>
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      value={confirmPassword}
+                      name="confirmPassword"
+                      onChange={handleInputChange}
+                      className="focus"
+                      autoComplete="off"
+                      required=""
+                    />
+                  </div>
+                  <div className="submClass1 ">
+                    <button className="regButton"
+                      id="regButton" onClick={(event) => {event.preventDefault(); prevStep(2, 1);}}>PREVIOUS</button>
+                    <button
+                      className="regButton"
+                      id="regButton"
+                      onClick={handleSubmit}
+                    >
+                      <p>SUBMIT</p>
+                    </button>
+                  </div>
                 </div>
+
+
               </form>
             </div>
           </div>
@@ -613,5 +716,7 @@ const Body = () => {
     </>
   );
 };
+
+
 
 export default Body;
