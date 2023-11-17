@@ -99,7 +99,8 @@ const Body = () => {
     img_grid.style.filter = `opacity(${alpha})`;
     image.style.filter = `opacity(${alpha})`;
     console.log(window.height);
-
+    form.style.filter = `opacity(0)`;
+    
     if (screen.height >= 700) {
       {
         window.addEventListener("scroll", () => {
@@ -135,10 +136,10 @@ const Body = () => {
             });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
           } else if (scrollPosition > 1000 && scrollPosition < 1831) {
             background.style.position = "relative";
-            background.style.top = "900px";
+            background.style.top = "525px";
           } else if (scrollPosition > 1831 && scrollPosition < 2100) {
-            introhead.style.color = `rgba(255,255,255,${Math.min(
-              1,
+            introhead.style.color = `rgba(255,255,255,${Math.max(
+              0,
               (scrollPosition - 1831) / 200
             )})`;
             introhead.style.fontSize = `${Math.min(
@@ -203,6 +204,8 @@ const Body = () => {
                   }
                 }, step);
             }
+            form.style.filter = `opacity(${(scrollPosition - 3750) / 200})`;
+            
             if (reg.value == 0) {
               incrementor("reg_counter", 0, 4000, 1);
             }
@@ -262,8 +265,8 @@ const Body = () => {
             5.8 * (1 - (scrollPosition - 840) / 3000)
           )}rem`;
         } else if (scrollPosition > 1353 && scrollPosition < 1600) {
-          discription.style.color = `rgba(255,255,255,${
-            (scrollPosition - 1353) / 750
+          discription.style.color = `rgba(255,255,255,${Math.max(0,
+            (scrollPosition - 1353) / 750)
           })`;
           document.querySelector(".intro").style.position = "fixed";
           document.querySelector(".intro").style.top = "200px";
