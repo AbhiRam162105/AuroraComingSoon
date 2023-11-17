@@ -123,10 +123,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.image {
-  width: 100% !important;
-}
-
 .Aurora23_text,
 .After_text {
   color: white;
@@ -998,6 +994,75 @@ h1 > .magic > .magic-text {
 
     &_circle {
       fill: #f7f8fa;
+    }
+  }
+}
+
+@media screen and (width<=700px) {
+  @media (max-width: 700px) {
+    .discription {
+      font-size: 0.91rem;
+    }
+    .formContainer {
+      display: grid;
+    }
+    .formContainer .form {
+      display: inline-table;
+      width: 100%;
+    }
+    .formContainer .text1 {
+      font-size: 40px;
+    }
+    .t1,
+    .t2,
+    .t3,
+    .t4 {
+      height: 80px;
+      width: 120px;
+    }
+    .focus {
+      font-size: large;
+
+      width: 300px;
+      height: 30px;
+    }
+    .submClass .regButton {
+      width: 300px;
+      height: 200px;
+    }
+    .img1 {
+      grid-area: 2/3/15/7;
+    }
+    .img2 {
+      grid-area: 14/18/9/27;
+    }
+    .img3 {
+      grid-area: 4/32/14/42;
+    }
+    .img4 {
+      grid-area: 15/2/32/18;
+    }
+    .img5 {
+      grid-area: 23/5/28/35;
+    }
+    .img6 {
+      grid-area: 21/38/42/35;
+    }
+    .img7 {
+      grid-area: 30/20/45/26;
+    }
+    .img8 {
+      grid-area: 38/4/36/22;
+    }
+    .img9 {
+      grid-area: 15/30/51 /32;
+    }
+    .img10 {
+      grid-area: 37 /39 /48 /47;
+    }
+    .background {
+      height: 100vh;
+      background-size: cover;
     }
   }
 }

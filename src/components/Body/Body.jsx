@@ -10,6 +10,7 @@ const Body = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [VisibleAlert, setVisibleAlert] = useState(false);
 
   const [emailLabel, setEmailLabel] = useState("Email");
   const [firstNameLabel, setFirstNameLabel] = useState("First Name");
@@ -133,9 +134,14 @@ const Body = () => {
             )}%;transform:scale(${
               1 - (0.2 * scrollPosition) / 667
             });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
-          } else if (scrollPosition > 1000 && scrollPosition < 1831) {
+          } 
+          else if(scrollPosition>653 && scrollPosition<1000){
+            introhead.style.color="black"
+            video_player.style.filter="opacity(0)"
+          }
+            else if (scrollPosition > 1000 && scrollPosition < 1831) {
             background.style.position = "relative";
-            background.style.top = "900px";
+            background.style.top = "535px";
           } else if (scrollPosition > 1831 && scrollPosition < 2100) {
             introhead.style.color = `rgba(255,255,255,${Math.min(
               1,
@@ -221,6 +227,9 @@ const Body = () => {
         image.style.filter = `opacity(${alpha})`;
         img_grid.style.filter = `opacity(${alpha})`;
         image.style.filter = `opacity(${alpha})`;
+          form.style.cssText += "transform:scale(0);";
+        
+
         if (scrollPosition < 653) {
           background.style.position = "sticky";
           background.style.top = "0px";
@@ -242,8 +251,8 @@ const Body = () => {
             1 - (0.2 * scrollPosition) / 667
           });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
         } else if (scrollPosition > 653 && scrollPosition < 933) {
-          background.style.position = "relative";
-          background.style.top = "850px";
+          background.style.position = "absolute";
+          background.style.top = "180px";
           introhead.style.color = `rgba(255,255,255,${Math.min(
             1,
             (scrollPosition - 700) / 200
@@ -296,8 +305,11 @@ const Body = () => {
           }), rgb(255,155,0,${(scrollPosition - 2000) / 500}));
             -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;`;
+          form.style.cssText += "transform:scale(0);";
         }
         if (scrollPosition > 2100) {
+          form.style.cssText += "transform:scale(1)";
+
           function incrementor(cls, start, end, duration) {
             let obj = document.querySelector(`.${cls}`),
               current = start,
