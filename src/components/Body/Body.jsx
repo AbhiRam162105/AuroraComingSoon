@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import Loader from "../Loader/Loader.jsx";
 import toast, { Toaster } from "react-hot-toast";
+import emailjs from "@emailjs/browser";
 
 const Body = () => {
   const [field, setField] = useState("");
@@ -78,7 +79,50 @@ const Body = () => {
     e.preventDefault();
 
     setVisibleAlert(true);
+    // setLoading(true);
 
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !date ||
+      !city ||
+      !college ||
+      !password ||
+      !confirmPassword
+    ) {
+      toast.error("Please fill all the fields!");
+      return;
+    }
+
+    emailjs
+      .send(
+        "service_h4pyzua",
+        "template_963guzs",
+        {
+          from_name: "Aurora Technical Team",
+          to_name: form.name,
+          from_email: "parasmahla90@gmail.com",
+          to_email: form.email,
+        },
+        "4ucRWRGghll2oHzYV"
+      )
+      .then(
+        () => {
+          setLoading(false);
+          alert("Thank you");
+          setForm({
+            name: "",
+            email: "",
+            message: "",
+          });
+        },
+        (error) => {
+          setLoading(false);
+          console.log(error);
+          alert("Something went wrong");
+        }
+      );
     const formData = {
       name: name,
       email: email,
@@ -614,25 +658,7 @@ const Body = () => {
                   </div>
 
                   <div className="field">
-                    <label htmlFor="DOB"> {dateLabel}</label>
-
-                    {/* <label className="input-label" htmlFor="firstName">
-                      {firstNameLabel}
-                    </label> */}
-                    <input
-                      type="text"
-                      id="firstName"
-                      value={firstName}
-                      name="firstName"
-                      onChange={handleInputChange}
-                      className="focus"
-                      autoComplete="off"
-                      required=""
-                    />
-                  </div>
-
-                  <div className="field">
-                    {/* <label htmlFor="lastName"> {lastNameLabel}</label> */}
+                    {/* <label htmlFor="DOB"> {dateLabel}</label> */}
 
                     <input
                       type="date"
@@ -766,16 +792,6 @@ const Body = () => {
                       onClick={handleSubmit}
                     >
                       <p>SUBMIT</p>
-                    </button>
-                  </div>
-
-                  <div className="submclassName">
-                    <button
-                      className="regButton"
-                      id="regButton"
-                      onClick={handleSubmit}
-                    >
-                      <p>Submit</p>
                     </button>
                   </div>
                 </div>
