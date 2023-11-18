@@ -137,11 +137,14 @@ const Body = () => {
           } 
           else if(scrollPosition>653 && scrollPosition<1000){
             introhead.style.color="black"
+            discription.style.color="black"
             video_player.style.filter="opacity(0)"
           }
             else if (scrollPosition > 1000 && scrollPosition < 1831) {
             background.style.position = "relative";
             background.style.top = "535px";
+            introhead.style.color="black"
+            discription.style.color="black"
           } else if (scrollPosition > 1831 && scrollPosition < 2100) {
             introhead.style.color = `rgba(255,255,255,${Math.min(
               1,
@@ -160,6 +163,8 @@ const Body = () => {
               5.8,
               5.8 * (1 - (scrollPosition - 2100) / 3000)
             )}rem`;
+            discription.style.color="black"
+
           } else if (scrollPosition > 2400 && scrollPosition < 2750) {
             discription.style.color = `rgba(255,255,255,${
               (scrollPosition - 2400) / 750
@@ -167,33 +172,49 @@ const Body = () => {
             document.querySelector(".intro").style.position = "fixed";
             document.querySelector(".intro").style.top = "200px";
             video_player.setAttribute("controls", false);
+            form.style.visibility="hidden";
             video_player.pause();
+            video_player.style.filter = `opacity(${Math.max(
+              0,
+              (3700 - scrollPosition) / 300
+            )})`;
+            video.style.filter="opacity(0)"
+            // video_player.style.visibility="hidden"
           } else if (scrollPosition > 2750) {
+            video_player.style.visibility="visible"
+
             document.querySelector(".intro").style.position = "relative";
             document.querySelector(".intro").style.top = "1900px";
             video_player.setAttribute("controls", true);
             video_player.play();
-            video.style.filter = `opacity(${Math.min(
-              1,
-              (scrollPosition - 2750) / 400
+            video.style.filter = `opacity(${Math.max(
+              0,
+              (scrollPosition - 2750)/400
             )})`;
           }
 
           if (scrollPosition > 3400) {
+            
+           
             video_player.pause();
+
             video.style.filter = `opacity(${Math.max(
               0,
               (3700 - scrollPosition) / 300
             )})`;
+            
           }
-          if (scrollPosition > 3700) {
+          if (scrollPosition > 3500) {
+            form.style.visibility="visible";
             counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${
-              (scrollPosition - 3700) / 300
+              (scrollPosition - 3500) / 300
             }), rgb(255,155,0,${(scrollPosition - 3700) / 500}));
             -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;`;
+        form.style.filter='opacity(0);'
           }
           if (scrollPosition > 3750) {
+            form.style.filter=`opacity(${(scrollPosition-3750)/50})`
             function incrementor(cls, start, end, duration) {
               let obj = document.querySelector(`.${cls}`),
                 current = start,
@@ -233,8 +254,8 @@ const Body = () => {
         if (scrollPosition < 653) {
           background.style.position = "sticky";
           background.style.top = "0px";
-          background.style.backgroundSize = `${100 + scrollPosition / 120}% ${
-            100 + scrollPosition / 120
+          background.style.backgroundSize = `${200 + scrollPosition / 120}% ${
+            90 + scrollPosition / 120
           }%`;
           text.style.backdropFilter = `brightness(${
             100 + (70 * (scrollPosition - 333)) / 667
@@ -250,6 +271,9 @@ const Body = () => {
           )}%;transform:scale(${
             1 - (0.2 * scrollPosition) / 667
           });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
+          introhead.style.color="black";
+          discription.style.color="black";
+          video_player.style.filter="opacity(0)"
         } else if (scrollPosition > 653 && scrollPosition < 933) {
           background.style.position = "absolute";
           background.style.top = "180px";
@@ -270,6 +294,8 @@ const Body = () => {
             5.8,
             5.8 * (1 - (scrollPosition - 840) / 3000)
           )}rem`;
+          discription.style.color="black";
+          video_player.style.filter="opacity(0)"
         } else if (scrollPosition > 1353 && scrollPosition < 1600) {
           discription.style.color = `rgba(255,255,255,${
             (scrollPosition - 1353) / 750
@@ -291,6 +317,7 @@ const Body = () => {
         if (scrollPosition > 1715) {
           video_player.play();
         }
+        
 
         if (scrollPosition > 1900) {
           video_player.pause();
@@ -480,14 +507,14 @@ const Body = () => {
               witness an entrancing blend of talent, a mesmerizing kaleidoscope
               of creativity, and an outpouring of innovative brilliance.
             </div>
-            <div class="cursor">
-              <div class="cursor__ball cursor__ball--big ">
+            <div className="cursor">
+              <div className="cursor__ball cursor__ball--big ">
                 <svg height="30" width="30">
                   <circle cx="15" cy="15" r="12" stroke-width="0"></circle>
                 </svg>
               </div>
 
-              <div class="cursor__ball cursor__ball--small">
+              <div className="cursor__ball cursor__ball--small">
                 <svg height="10" width="10">
                   <circle cx="5" cy="5" r="4" stroke-width="0"></circle>
                 </svg>
@@ -596,7 +623,7 @@ const Body = () => {
                     />
                   </div>
                 </div>
-                <div className="submClass">
+                <div className="submclassName">
                   <button
                     className="regButton"
                     id="regButton"
