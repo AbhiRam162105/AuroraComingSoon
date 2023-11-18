@@ -602,17 +602,17 @@ const Body = () => {
                 <hr />
               </div>
 
-              <form>
-                <div className="input-control">
+               <form>
+                <div className="input-control tab" id="step1">
                   <div className="field">
-                    <label className="input-label" htmlFor="firstName">
-                      {firstNameLabel}
+                    <label className="input-label" htmlFor="name">
+                      {nameLabel}
                     </label>
                     <input
                       type="text"
-                      id="firstName"
-                      value={firstName}
-                      name="firstName"
+                      id="name"
+                      value={name}
+                      name="name"
                       onChange={handleInputChange}
                       className="focus"
                       autoComplete="off"
@@ -621,6 +621,9 @@ const Body = () => {
                   </div>
 
                   <div className="field">
+
+                    <label htmlFor="DOB"> {dateLabel}</label>
+
                     <label className="input-label" htmlFor="firstName">
                       {firstNameLabel}
                     </label>
@@ -638,11 +641,12 @@ const Body = () => {
 
                   <div className="field">
                     <label htmlFor="lastName"> {lastNameLabel}</label>
+
                     <input
-                      type="text"
-                      id="lastName"
-                      value={lastName}
-                      name="lastName"
+                      type="date"
+                      id="date"
+                      value={date}
+                      name="date"
                       onChange={handleInputChange}
                       className="focus"
                       autoComplete="off"
@@ -676,7 +680,81 @@ const Body = () => {
                       required=""
                     />
                   </div>
+                  <div className="submClass">
+                    <button className="regButton"
+                      id="regButton" onClick={(event) => { event.preventDefault(); nextStep(1, 2); }}>NEXT</button>
+                  </div>
                 </div>
+
+                <div className="input-control control2 tab" id="step2" style={{ display: 'none' }}>
+                  <div className="field">
+                    <label className="input-label" htmlFor="city">
+                      {cityLabel}
+                    </label>
+                    <input
+                      type="text"
+                      id="city"
+                      value={city}
+                      name="city"
+                      onChange={handleInputChange}
+                      className="focus"
+                      autoComplete="off"
+                      required=""
+                    />
+                  </div>
+
+                  <div className="field">
+                    <label htmlFor="college"> {collegeLabel}</label>
+                    <input
+                      type="text"
+                      id="college"
+                      value={college}
+                      name="college"
+                      onChange={handleInputChange}
+                      className="focus"
+                      autoComplete="off"
+                      required=""
+                    />
+                  </div>
+                  <div className="field">
+                    <label htmlFor="password"> {passwordLabel}</label>
+                    <input
+                      type="password"
+                      id="password"
+                      value={password}
+                      name="password"
+                      onChange={handleInputChange}
+                      className="focus"
+                      autoComplete="off"
+                      required=""
+                    />
+                  </div>
+
+                  <div className="field">
+                    <label htmlFor="confirmPassword">{confirmPasswordLabel}</label>
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      value={confirmPassword}
+                      name="confirmPassword"
+                      onChange={handleInputChange}
+                      className="focus"
+                      autoComplete="off"
+                      required=""
+                    />
+                  </div>
+                  <div className="submClass1 ">
+                    <button className="regButton"
+                      id="regButton" onClick={(event) => { event.preventDefault(); prevStep(2, 1); }}>PREVIOUS</button>
+                    <button
+                      className="regButton"
+                      id="regButton"
+                      onClick={handleSubmit}
+                    >
+                      <p>SUBMIT</p>
+                    </button>
+                  </div>
+
                 <div className="submclassName">
                   <button
                     className="regButton"
@@ -685,7 +763,10 @@ const Body = () => {
                   >
                     <p>Submit</p>
                   </button>
+
                 </div>
+
+
               </form>
             </div>
           </div>
