@@ -498,7 +498,8 @@ const Body = () => {
               <div className="After_text ">COMING SOON</div>
             </div>
           </div>
-         
+          <div class="cursor"></div>
+          <div class="cursor2"></div>
           <div className="intro">
             <div className="intro_head">
               We are back <span>!</span>
@@ -573,6 +574,22 @@ const Body = () => {
 
               <form>
                 <div className="input-control">
+                  <div className="field">
+                    <label className="input-label" htmlFor="firstName">
+                      {firstNameLabel}
+                    </label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      value={firstName}
+                      name="firstName"
+                      onChange={handleInputChange}
+                      className="focus"
+                      autoComplete="off"
+                      required=""
+                    />
+                  </div>
+
                   <div className="field">
                     <label className="input-label" htmlFor="firstName">
                       {firstNameLabel}
