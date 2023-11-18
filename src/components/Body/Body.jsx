@@ -6,8 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Body = () => {
   const [field, setField] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [email, setEmail] = useState("");
@@ -616,9 +615,9 @@ const Body = () => {
                   <div className="field">
                     <label htmlFor="DOB"> {dateLabel}</label>
 
-                    <label className="input-label" htmlFor="firstName">
+                    {/* <label className="input-label" htmlFor="firstName">
                       {firstNameLabel}
-                    </label>
+                    </label> */}
                     <input
                       type="text"
                       id="firstName"
@@ -632,7 +631,7 @@ const Body = () => {
                   </div>
 
                   <div className="field">
-                    <label htmlFor="lastName"> {lastNameLabel}</label>
+                    {/* <label htmlFor="lastName"> {lastNameLabel}</label> */}
 
                     <input
                       type="date"
