@@ -4,12 +4,13 @@ import axios from "axios";
 import Loader from "../Loader/Loader.jsx";
 import toast, { Toaster } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
-import DatePicker from "react-date-picker";
+import { AiFillCalendar } from "react-icons/ai";
 
 const Body = () => {
   const [field, setField] = useState("");
-  const [dateValue, setDateValue] = useState(new Date());
+
   const [name, setName] = useState("");
+  const [date, setDate] = useState();
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
@@ -30,16 +31,6 @@ const Body = () => {
     useState("ConfirmPassword");
   const [passwordLabel, setPasswordLabel] = useState("Password");
 
-  // const [dateValue, setDateValue] = useState();
-  const onDateChange = () => {
-    
-  };
-
-  // const handleInputDate = () => {
-  //   setDateValue(value);
-  //   setDateLabel("");
-  // };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -48,7 +39,7 @@ const Body = () => {
       setName(e.target.value);
       setNameLabel("");
     } else if (name === "date") {
-      setDateValue(value);
+      setDate(value);
       setDateLabel("");
     } else if (name === "email") {
       setEmail(value);
@@ -91,75 +82,50 @@ const Body = () => {
     setVisibleAlert(true);
     // setLoading(true);
 
-    // if (
-    //   !name ||
-    //   !email ||
-    //   !phone ||
-    //   !dateValue ||
-    //   !city ||
-    //   !college ||
-    //   !password ||
-    //   !confirmPassword
-    // ) {
-    //   toast.error("Please fill all the fields!");
-    //   return;
-    // }
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !date ||
+      !city ||
+      !college ||
+      !password ||
+      !confirmPassword
+    ) {
+      toast.error("Please fill all the fields!");
+      return;
+    }
 
-    emailjs
-      .send(
-        "service_h4pyzua",
-        "template_963guzs",
+    const formData = {
+      name: name,
+      email: email,
+      phone: phone,
+      DOB: date,
+      city: phone,
+      college: college,
+      password: password,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://aurora-nokc.onrender.com/register",
+        formData,
         {
-          from_name: "Aurora Technical Team",
-          to_name: "mrigank",
-          from_email: "parasmahla90@gmail.com",
-          to_email: "mrigankshukla2015@gmail.com",
-        },
-        "4ucRWRGghll2oHzYV"
-      )
-      .then(
-        () => {
-          setLoading(false);
-          alert("Thank you");
-      
-        },
-        (error) => {
-          setLoading(false);
-          console.log(error);
-          alert("Something went wrong");
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
-    // const formData = {
-    //   name: name,
-    //   email: email,
-    //   phone: phone,
-    //   DOB: dateValue,
-    //   city: phone,
-    //   college: college,
-    //   password: password,
-    // };
 
-    // try {
-    //   const response = await axios.post(
-    //     "https://aurora-nokc.onrender.com/register",
-    //     formData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-
-    //   console.log("Form data sent successfully:", response.data);
-    //   toast.success("Registered Succesfully");
-    // } catch (error) {
-    //   console.error("Error sending form data:", error);
-    //   toast.error("Not registered");
-    // }
+      console.log("Form data sent successfully:", response.data);
+      toast.success("Registered Succesfully");
+    } catch (error) {
+      console.error("Error sending form data:", error);
+      toast.error("Not registered");
+    }
   };
 
   useEffect(() => {
-    console.log(dateValue);
     var background = document.querySelector(".background");
     var party_image = document.querySelector(".party_image");
     var text = document.querySelector(".text");
@@ -200,24 +166,19 @@ const Body = () => {
           if (scrollPosition < 1000) {
             background.style.position = "sticky";
             background.style.top = "0px";
-            background.style.backgroundSize = `${100 + scrollPosition / 120}% ${
-              100 + scrollPosition / 120
-            }%`;
-            text.style.backdropFilter = `brightness(${
-              100 + (70 * (scrollPosition - 333)) / 667
-            }%)`;
+            background.style.backgroundSize = `${100 + scrollPosition / 120}% ${100 + scrollPosition / 120
+              }%`;
+            text.style.backdropFilter = `brightness(${100 + (70 * (scrollPosition - 333)) / 667
+              }%)`;
 
-            auroratext.style.cssText = `top:${
-              35 - (10 * scrollPosition) / 667
-            }%;transform:scale(${
-              1 - (0.2 * scrollPosition) / 667
-            });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
+            auroratext.style.cssText = `top:${35 - (10 * scrollPosition) / 667
+              }%;transform:scale(${1 - (0.2 * scrollPosition) / 667
+              });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
             after_text.style.cssText = `top:${Math.max(
               35,
               51 - (16 * (scrollPosition - 333)) / 334
-            )}%;transform:scale(${
-              1 - (0.2 * scrollPosition) / 667
-            });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
+            )}%;transform:scale(${1 - (0.2 * scrollPosition) / 667
+              });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
           } else if (scrollPosition > 653 && scrollPosition < 1000) {
             introhead.style.color = "black";
             discription.style.color = "black";
@@ -251,9 +212,8 @@ const Body = () => {
             )}rem`;
             discription.style.color = "black";
           } else if (scrollPosition > 2400 && scrollPosition < 2750) {
-            discription.style.color = `rgba(255,255,255,${
-              (scrollPosition - 2400) / 750
-            })`;
+            discription.style.color = `rgba(255,255,255,${(scrollPosition - 2400) / 750
+              })`;
             document.querySelector(".intro").style.position = "fixed";
             document.querySelector(".intro").style.top = "200px";
             video_player.setAttribute("controls", false);
@@ -288,9 +248,8 @@ const Body = () => {
           }
           if (scrollPosition > 3500) {
             form.style.visibility = "visible";
-            counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${
-              (scrollPosition - 3500) / 300
-            }), rgb(255,155,0,${(scrollPosition - 3700) / 500}));
+            counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${(scrollPosition - 3500) / 300
+              }), rgb(255,155,0,${(scrollPosition - 3700) / 500}));
             -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;`;
             form.style.filter = "opacity(0);";
@@ -335,23 +294,18 @@ const Body = () => {
         if (scrollPosition < 653) {
           background.style.position = "sticky";
           background.style.top = "0px";
-          background.style.backgroundSize = `${200 + scrollPosition / 120}% ${
-            90 + scrollPosition / 120
-          }%`;
-          text.style.backdropFilter = `brightness(${
-            100 + (70 * (scrollPosition - 333)) / 667
-          }%)`;
-          auroratext.style.cssText = `top:${
-            35 - (10 * scrollPosition) / 667
-          }%;transform:scale(${
-            1 - (0.2 * scrollPosition) / 667
-          });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
+          background.style.backgroundSize = `${200 + scrollPosition / 120}% ${90 + scrollPosition / 120
+            }%`;
+          text.style.backdropFilter = `brightness(${100 + (70 * (scrollPosition - 333)) / 667
+            }%)`;
+          auroratext.style.cssText = `top:${35 - (10 * scrollPosition) / 667
+            }%;transform:scale(${1 - (0.2 * scrollPosition) / 667
+            });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
           after_text.style.cssText = `top:${Math.max(
             35,
             51 - (16 * (scrollPosition - 333)) / 334
-          )}%;transform:scale(${
-            1 - (0.2 * scrollPosition) / 667
-          });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
+          )}%;transform:scale(${1 - (0.2 * scrollPosition) / 667
+            });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
           introhead.style.color = "black";
           discription.style.color = "black";
           video_player.style.filter = "opacity(0)";
@@ -378,9 +332,8 @@ const Body = () => {
           discription.style.color = "black";
           video_player.style.filter = "opacity(0)";
         } else if (scrollPosition > 1353 && scrollPosition < 1600) {
-          discription.style.color = `rgba(255,255,255,${
-            (scrollPosition - 1353) / 750
-          })`;
+          discription.style.color = `rgba(255,255,255,${(scrollPosition - 1353) / 750
+            })`;
           document.querySelector(".intro").style.position = "fixed";
           document.querySelector(".intro").style.top = "200px";
           video_player.setAttribute("controls", false);
@@ -407,9 +360,8 @@ const Body = () => {
           )})`;
         }
         if (scrollPosition > 2000) {
-          counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${
-            (scrollPosition - 2000) / 300
-          }), rgb(255,155,0,${(scrollPosition - 2000) / 500}));
+          counter.style.cssText = ` background: -webkit-linear-gradient(180deg,rgba(255,0,0,${(scrollPosition - 2000) / 300
+            }), rgb(255,155,0,${(scrollPosition - 2000) / 500}));
             -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;`;
           form.style.cssText += "transform:scale(0);";
@@ -667,32 +619,22 @@ const Body = () => {
                   <div className="field">
                     {/* <label htmlFor="DOB"> {dateLabel}</label> */}
 
-                    {/* <input
+
+                    <input
+                      id="date" className="focus"
                       type="date"
-                      id="date"
-                      // value={date}
+                      value={date}
+                      onChange={handleInputChange}
                       name="date"
-                      // onChange={handleInputChange}
-                      className="focus"
                       autoComplete="off"
                       required=""
-                    /> */}
-                    {/* <input
-                      type="date"
-                      id="date"
-                      name="date"
-                      className="focus"
-                      value={dateValue}
-                      onChange={onDateChange}
-                    /> */}
-                    <DatePicker
-                      name="date"
-                      onChange={onDateChange}
-                      value={dateValue}
-                      autoFocus={true}
-                      className="date-picker"
-                      closeCalendar={false}
                     />
+                    <div>
+                    <AiFillCalendar />
+                    </div>
+                    
+
+
                   </div>
                   <div className="field">
                     <label htmlFor="email"> {emailLabel}</label>
