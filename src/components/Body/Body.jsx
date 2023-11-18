@@ -33,58 +33,47 @@ const Body = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    
-  setEmailLabel("Email");
-     }
-
-     if (name === "name") {
-       setName(e.target.value);
-       setNameLabel("");
-     } else if (name === "date") {
-       setDate(value);
-       setDateLabel("");
+    setEmailLabel("Email");
+    if (name === "name") {
+      setName(e.target.value);
+      setNameLabel("");
+    } else if (name === "date") {
+      setDate(value);
+      setDateLabel("");
     } else if (name === "email") {
       setEmail(value);
       setEmailLabel("");
     } else if (name === "phone") {
       setPhone(value);
       setPhoneLabel("");
+    } else if (name === "city") {
+      setCity(value);
+      setCityLabel("");
+    } else if (name === "college") {
+      setCollege(value);
+      setCollegeLabel("");
+    } else if (name === "password") {
+      setPassword(value);
+      setPasswordLabel("");
+    } else if (name === "confirmPassword") {
+      setConfirmPassword(value);
+      setConfirmPasswordLabel("");
     }
-    else if (name === "city") {
-       setCity(value);
-       setCityLabel("");
-     }
-     else if (name === "college") {
-       setCollege(value);
-       setCollegeLabel("");
-     }
-     else if (name === "password") {
-       setPassword(value);
-       setPasswordLabel("");
-     }
-     else if (name === "confirmPassword") {
-       setConfirmPassword(value);
-       setConfirmPasswordLabel("");
-     }
-   };
+  };
 
-   let currentStep = 1;
+  let currentStep = 1;
 
-   const nextStep = (current, next) => {
-     document.getElementById(`step${current}`).style.display = 'none';
-     document.getElementById(`step${next}`).style.display = 'block';
-     currentStep = next;
-   };
+  const nextStep = (current, next) => {
+    document.getElementById(`step${current}`).style.display = "none";
+    document.getElementById(`step${next}`).style.display = "block";
+    currentStep = next;
+  };
 
-   const prevStep = (current, prev) => {
-     document.getElementById(`step${current}`).style.display = 'none';
-     document.getElementById(`step${prev}`).style.display = 'block';
-     currentStep = prev;
-   };
-
-
-
-
+  const prevStep = (current, prev) => {
+    document.getElementById(`step${current}`).style.display = "none";
+    document.getElementById(`step${prev}`).style.display = "block";
+    currentStep = prev;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,13 +81,13 @@ const Body = () => {
     setVisibleAlert(true);
 
     const formData = {
-       name: name,
-       email: email,
-       phone: phone,
-       DOB: date,
-       city: phone,
-       college: college,
-       password: password,
+      name: name,
+      email: email,
+      phone: phone,
+      DOB: date,
+      city: phone,
+      college: college,
+      password: password,
     };
 
     try {
@@ -160,14 +149,18 @@ const Body = () => {
           if (scrollPosition < 1000) {
             background.style.position = "sticky";
             background.style.top = "0px";
-               background.style.backgroundSize = `${100 + scrollPosition / 120}% ${100 + scrollPosition / 120
-               }%`;
-             text.style.backdropFilter = `brightness(${100 + (70 * (scrollPosition - 333)) / 667
-               }%)`;
+            background.style.backgroundSize = `${100 + scrollPosition / 120}% ${
+              100 + scrollPosition / 120
+            }%`;
+            text.style.backdropFilter = `brightness(${
+              100 + (70 * (scrollPosition - 333)) / 667
+            }%)`;
 
-             auroratext.style.cssText = `top:${35 - (10 * scrollPosition) / 667
-               }%;transform:scale(${1 - (0.2 * scrollPosition) / 667
-               });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
+            auroratext.style.cssText = `top:${
+              35 - (10 * scrollPosition) / 667
+            }%;transform:scale(${
+              1 - (0.2 * scrollPosition) / 667
+            });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
             after_text.style.cssText = `top:${Math.max(
               35,
               51 - (16 * (scrollPosition - 333)) / 334
@@ -602,7 +595,7 @@ const Body = () => {
                 <hr />
               </div>
 
-               <form>
+              <form>
                 <div className="input-control tab" id="step1">
                   <div className="field">
                     <label className="input-label" htmlFor="name">
@@ -621,7 +614,6 @@ const Body = () => {
                   </div>
 
                   <div className="field">
-
                     <label htmlFor="DOB"> {dateLabel}</label>
 
                     <label className="input-label" htmlFor="firstName">
@@ -681,12 +673,24 @@ const Body = () => {
                     />
                   </div>
                   <div className="submClass">
-                    <button className="regButton"
-                      id="regButton" onClick={(event) => { event.preventDefault(); nextStep(1, 2); }}>NEXT</button>
+                    <button
+                      className="regButton"
+                      id="regButton"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        nextStep(1, 2);
+                      }}
+                    >
+                      NEXT
+                    </button>
                   </div>
                 </div>
 
-                <div className="input-control control2 tab" id="step2" style={{ display: 'none' }}>
+                <div
+                  className="input-control control2 tab"
+                  id="step2"
+                  style={{ display: "none" }}
+                >
                   <div className="field">
                     <label className="input-label" htmlFor="city">
                       {cityLabel}
@@ -731,7 +735,9 @@ const Body = () => {
                   </div>
 
                   <div className="field">
-                    <label htmlFor="confirmPassword">{confirmPasswordLabel}</label>
+                    <label htmlFor="confirmPassword">
+                      {confirmPasswordLabel}
+                    </label>
                     <input
                       type="password"
                       id="confirmPassword"
@@ -744,8 +750,16 @@ const Body = () => {
                     />
                   </div>
                   <div className="submClass1 ">
-                    <button className="regButton"
-                      id="regButton" onClick={(event) => { event.preventDefault(); prevStep(2, 1); }}>PREVIOUS</button>
+                    <button
+                      className="regButton"
+                      id="regButton"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        prevStep(2, 1);
+                      }}
+                    >
+                      PREVIOUS
+                    </button>
                     <button
                       className="regButton"
                       id="regButton"
@@ -755,18 +769,16 @@ const Body = () => {
                     </button>
                   </div>
 
-                <div className="submclassName">
-                  <button
-                    className="regButton"
-                    id="regButton"
-                    onClick={handleSubmit}
-                  >
-                    <p>Submit</p>
-                  </button>
-
+                  <div className="submclassName">
+                    <button
+                      className="regButton"
+                      id="regButton"
+                      onClick={handleSubmit}
+                    >
+                      <p>Submit</p>
+                    </button>
+                  </div>
                 </div>
-
-
               </form>
             </div>
           </div>
