@@ -22,7 +22,7 @@ const Body = () => {
   const [phoneLabel, setPhoneLabel] = useState("Phone");
   const [cityLabel, setCityLabel] = useState("City");
   const [collegeLabel, setCollegeLabel] = useState("College");
-  const [confirmPasswordLabel, setConfirmPasswordLabel] = useState("ConfirmPassword");
+  const [confirmPasswordLabel, setConfirmPasswordLabel] = useState("Confirm Password");
   const [passwordLabel, setPasswordLabel] = useState("Password");
 
   const handleInputChange = (e) => {
@@ -69,6 +69,7 @@ const Body = () => {
     }
   };
 
+
   let currentStep = 1;
 
   const nextStep = (current, next) => {
@@ -82,15 +83,6 @@ const Body = () => {
     document.getElementById(`step${prev}`).style.display = 'block';
     currentStep = prev;
   };
-
-
-
-
-
-
-
-
-
 
 
   const handleSubmit = async (e) => {
@@ -634,7 +626,7 @@ const Body = () => {
                   </div>
                   <div className="submClass">
                     <button className="regButton"
-                      id="regButton" onClick={(event) => {event.preventDefault(); nextStep(1, 2);}}>NEXT</button>
+                      id="regButton" onClick={(event) => { event.preventDefault(); nextStep(1, 2); }}>NEXT</button>
                   </div>
                 </div>
                 <div className="input-control control2 tab" id="step2" style={{ display: 'none' }}>
@@ -696,7 +688,7 @@ const Body = () => {
                   </div>
                   <div className="submClass1 ">
                     <button className="regButton"
-                      id="regButton" onClick={(event) => {event.preventDefault(); prevStep(2, 1);}}>PREVIOUS</button>
+                      id="regButton" onClick={(event) => { event.preventDefault(); prevStep(2, 1); }}>PREVIOUS</button>
                     <button
                       className="regButton"
                       id="regButton"
