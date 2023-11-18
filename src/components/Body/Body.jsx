@@ -671,13 +671,13 @@ const Body = () => {
                       autoComplete="off"
                       required=""
                     />
-                    {/* <DatePicker
+                    <DatePicker
                       onChange={onDateChange}
                       value={dateValue}
                       autoFocus={true}
                       className="date-picker"
                       closeCalendar={false}
-                    /> */}
+                    />
                   </div>
                   <div className="field">
                     <label htmlFor="email"> {emailLabel}</label>
