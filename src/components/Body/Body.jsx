@@ -3,7 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 import Loader from "../Loader/Loader.jsx";
 import toast, { Toaster } from "react-hot-toast";
-import emailjs from "@emailjs/browser";
 
 const Body = () => {
   const [field, setField] = useState("");
@@ -100,34 +99,7 @@ const Body = () => {
           },
         }
       );
-      emailjs
-        .send(
-          "service_h4pyzua",
-          "template_963guzs",
-          {
-            from_name: "Aurora Technical Team",
-            to_name: form.name,
-            from_email: "parasmahla90@gmail.com",
-            to_email: form.email,
-          },
-          "4ucRWRGghll2oHzYV"
-        )
-        .then(
-          () => {
-            setLoading(false);
-            alert("Thank you");
-            setForm({
-              name: "",
-              email: "",
-              message: "",
-            });
-          },
-          (error) => {
-            setLoading(false);
-            console.log(error);
-            alert("Something went wrong");
-          }
-        );
+
       console.log("Form data sent successfully:", response.data);
       toast.success("Registered Succesfully");
     } catch (error) {
