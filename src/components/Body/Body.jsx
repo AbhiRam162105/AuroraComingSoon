@@ -4,10 +4,11 @@ import axios from "axios";
 import Loader from "../Loader/Loader.jsx";
 import toast, { Toaster } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
+import DatePicker from "react-date-picker";
 
 const Body = () => {
   const [field, setField] = useState("");
-
+  const [dateValue, onDateChange] = useState(new Date());
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [email, setEmail] = useState("");
@@ -670,6 +671,13 @@ const Body = () => {
                       autoComplete="off"
                       required=""
                     />
+                    {/* <DatePicker
+                      onChange={onDateChange}
+                      value={dateValue}
+                      autoFocus={true}
+                      className="date-picker"
+                      closeCalendar={false}
+                    /> */}
                   </div>
                   <div className="field">
                     <label htmlFor="email"> {emailLabel}</label>
