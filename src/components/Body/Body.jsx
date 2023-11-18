@@ -178,6 +178,15 @@ const Body = () => {
             video_player.style.filter = "opacity(0)"
           }
           else if (scrollPosition > 1000 && scrollPosition < 1831) {
+
+            )}%;transform:scale(${
+              1 - (0.2 * scrollPosition) / 667
+            });color:rgba(255,2555,255,${(2 * (scrollPosition - 333)) / 667})`;
+          } else if (scrollPosition > 653 && scrollPosition < 1000) {
+            introhead.style.color = "black";
+            video_player.style.filter = "opacity(0)";
+          } else if (scrollPosition > 1000 && scrollPosition < 1831) {
+
             background.style.position = "relative";
             background.style.top = "535px";
           } else if (scrollPosition > 1831 && scrollPosition < 2100) {
@@ -494,6 +503,7 @@ const Body = () => {
               <div className="After_text ">COMING SOON</div>
             </div>
           </div>
+         
           <div className="intro">
             <div className="intro_head">
               We are back <span>!</span>
