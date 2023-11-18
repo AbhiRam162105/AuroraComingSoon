@@ -8,9 +8,8 @@ import DatePicker from "react-date-picker";
 
 const Body = () => {
   const [field, setField] = useState("");
-  const [dateValue, onDateChange] = useState(new Date());
+  const [dateValue, setDateValue] = useState(new Date());
   const [name, setName] = useState("");
-  const [date, setDate] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
@@ -31,6 +30,16 @@ const Body = () => {
     useState("ConfirmPassword");
   const [passwordLabel, setPasswordLabel] = useState("Password");
 
+  // const [dateValue, setDateValue] = useState();
+  const onDateChange = () => {
+    
+  };
+
+  // const handleInputDate = () => {
+  //   setDateValue(value);
+  //   setDateLabel("");
+  // };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -39,7 +48,7 @@ const Body = () => {
       setName(e.target.value);
       setNameLabel("");
     } else if (name === "date") {
-      setDate(value);
+      setDateValue(value);
       setDateLabel("");
     } else if (name === "email") {
       setEmail(value);
@@ -82,19 +91,19 @@ const Body = () => {
     setVisibleAlert(true);
     // setLoading(true);
 
-    if (
-      !name ||
-      !email ||
-      !phone ||
-      !date ||
-      !city ||
-      !college ||
-      !password ||
-      !confirmPassword
-    ) {
-      toast.error("Please fill all the fields!");
-      return;
-    }
+    // if (
+    //   !name ||
+    //   !email ||
+    //   !phone ||
+    //   !dateValue ||
+    //   !city ||
+    //   !college ||
+    //   !password ||
+    //   !confirmPassword
+    // ) {
+    //   toast.error("Please fill all the fields!");
+    //   return;
+    // }
 
     emailjs
       .send(
@@ -102,9 +111,9 @@ const Body = () => {
         "template_963guzs",
         {
           from_name: "Aurora Technical Team",
-          to_name: form.name,
+          to_name: "mrigank",
           from_email: "parasmahla90@gmail.com",
-          to_email: form.email,
+          to_email: "mrigankshukla2015@gmail.com",
         },
         "4ucRWRGghll2oHzYV"
       )
@@ -112,11 +121,7 @@ const Body = () => {
         () => {
           setLoading(false);
           alert("Thank you");
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
+      
         },
         (error) => {
           setLoading(false);
@@ -124,36 +129,37 @@ const Body = () => {
           alert("Something went wrong");
         }
       );
-    const formData = {
-      name: name,
-      email: email,
-      phone: phone,
-      DOB: date,
-      city: phone,
-      college: college,
-      password: password,
-    };
+    // const formData = {
+    //   name: name,
+    //   email: email,
+    //   phone: phone,
+    //   DOB: dateValue,
+    //   city: phone,
+    //   college: college,
+    //   password: password,
+    // };
 
-    try {
-      const response = await axios.post(
-        "https://aurora-nokc.onrender.com/register",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    // try {
+    //   const response = await axios.post(
+    //     "https://aurora-nokc.onrender.com/register",
+    //     formData,
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
 
-      console.log("Form data sent successfully:", response.data);
-      toast.success("Registered Succesfully");
-    } catch (error) {
-      console.error("Error sending form data:", error);
-      toast.error("Not registered");
-    }
+    //   console.log("Form data sent successfully:", response.data);
+    //   toast.success("Registered Succesfully");
+    // } catch (error) {
+    //   console.error("Error sending form data:", error);
+    //   toast.error("Not registered");
+    // }
   };
 
   useEffect(() => {
+    console.log(dateValue);
     var background = document.querySelector(".background");
     var party_image = document.querySelector(".party_image");
     var text = document.querySelector(".text");
@@ -661,17 +667,26 @@ const Body = () => {
                   <div className="field">
                     {/* <label htmlFor="DOB"> {dateLabel}</label> */}
 
-                    <input
+                    {/* <input
                       type="date"
                       id="date"
-                      value={date}
+                      // value={date}
                       name="date"
-                      onChange={handleInputChange}
+                      // onChange={handleInputChange}
                       className="focus"
                       autoComplete="off"
                       required=""
-                    />
+                    /> */}
+                    {/* <input
+                      type="date"
+                      id="date"
+                      name="date"
+                      className="focus"
+                      value={dateValue}
+                      onChange={onDateChange}
+                    /> */}
                     <DatePicker
+                      name="date"
                       onChange={onDateChange}
                       value={dateValue}
                       autoFocus={true}
