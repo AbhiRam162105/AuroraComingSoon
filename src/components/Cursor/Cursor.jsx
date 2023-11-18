@@ -1,35 +1,43 @@
 import React, { useState, useEffect } from "react";
 import "./Cursor.css";
-
 const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const updateCursorPosition = (e) => {
-    setPosition({ x: e.clientX, y: e.clientY });
-  };
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [click, setClick] = useState(false);
+  const [hover, setHover] = useState(false);
 
   useEffect(() => {
-    document.addEventListener("mousemove", updateCursorPosition);
+    const updateMousePos = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", updateMousePos);
     return () => {
-      document.removeEventListener("mousemove", updateCursorPosition);
+      window.removeEventListener("mousemove", updateMousePos);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleMouseDown = () => {
+      setClick(true);
+    };
+    const handleMouseUp = () => {
+      setClick(false);
+    };
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
   }, []);
 
   return (
     <div
-      className="custom-cursor"
+      className={`cursor ${click ? "click" : ""} ${hover ? "hover" : ""}`}
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        transform: `translate3d(calc(${mousePos.x}px - 50%), calc(${mousePos.y}px - 50%), 0)`,
       }}
     >
-      <div class="cursor">
-        <div class="cursor__ball cursor__ball--big ">
-          <svg height="30" width="30">
-            <circle cx="2" cy="2" r="10" stroke-width="0"></circle>
-          </svg>
-        </div>
-      </div>
+      <div className={`cursorinner ${click ? "cursorinnerhover" : ""}`}></div>
     </div>
   );
 };
