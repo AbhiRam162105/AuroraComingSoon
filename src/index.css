@@ -405,6 +405,8 @@ body {
 
   border-bottom: 1px solid #696b78;
 }
+ 
+
 .submClass .regButton {
   width: 400px;
   height: 50px;
@@ -419,9 +421,9 @@ body {
   /* border: 1px solid rgb(255, 253, 250); */
   /* background-color: #161922; */
 }
-
-.submClass .regButton {
-  width: 400px;
+.submClass1 .regButton {
+  width: 46%;
+  
   height: 50px;
   align-content: center;
   /* background-color: #5523dd; */
@@ -433,6 +435,12 @@ body {
   border: #696b78;
   /* border: 1px solid rgb(255, 253, 250); */
   /* background-color: #161922; */
+}
+.submClass1{
+  padding: 10px;
+  margin: 20px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .form .submClass {
@@ -592,6 +600,10 @@ body {
   }
   .submClass .regButton {
     width: 350px;
+    height: 40px;
+  }
+  .submClass1 .regButton {
+       
     height: 40px;
   }
 }
@@ -1044,7 +1056,11 @@ h1 > .magic > .magic-text {
     }
     .submClass .regButton {
       width: 300px;
-      height: 200px;
+      height: 40px;
+    }
+    .submClass1 .regButton {
+       
+      height: 40px;
     }
     .img1 {
       grid-area: 2/3/15/7;
@@ -1081,4 +1097,12 @@ h1 > .magic > .magic-text {
       background-size: cover;
     }
   }
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
 }
