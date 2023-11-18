@@ -8,34 +8,41 @@ const Body = () => {
   const [field, setField] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [college, setCollege] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [VisibleAlert, setVisibleAlert] = useState(false);
 
   const [emailLabel, setEmailLabel] = useState("Email");
+  const [nameLabel, setNameLabel] = useState("Name");
+  const [dateLabel, setDateLabel] = useState("Date");
   const [firstNameLabel, setFirstNameLabel] = useState("First Name");
   const [lastNameLabel, setLastNameLabel] = useState("Last Name");
   const [phoneLabel, setPhoneLabel] = useState("Phone");
+  const [cityLabel, setCityLabel] = useState("City");
+  const [collegeLabel, setCollegeLabel] = useState("College");
+  const [confirmPasswordLabel, setConfirmPasswordLabel] =
+    useState("ConfirmPassword");
+  const [passwordLabel, setPasswordLabel] = useState("Password");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (value === "") {
-      setEmailLabel("Email");
-    }
+    
+  setEmailLabel("Email");
+     }
 
-    if (e.target.value) {
-    }
-    if (name === "") {
-      setEmailLabel("Email");
-    }
-
-    if (name === "firstName") {
-      setFirstName(e.target.value);
-      setFirstNameLabel("");
-    } else if (name === "lastName") {
-      setLastName(value);
-      setLastNameLabel("");
+     if (name === "name") {
+       setName(e.target.value);
+       setNameLabel("");
+     } else if (name === "date") {
+       setDate(value);
+       setDateLabel("");
     } else if (name === "email") {
       setEmail(value);
       setEmailLabel("");
@@ -43,7 +50,41 @@ const Body = () => {
       setPhone(value);
       setPhoneLabel("");
     }
-  };
+    else if (name === "city") {
+       setCity(value);
+       setCityLabel("");
+     }
+     else if (name === "college") {
+       setCollege(value);
+       setCollegeLabel("");
+     }
+     else if (name === "password") {
+       setPassword(value);
+       setPasswordLabel("");
+     }
+     else if (name === "confirmPassword") {
+       setConfirmPassword(value);
+       setConfirmPasswordLabel("");
+     }
+   };
+
+   let currentStep = 1;
+
+   const nextStep = (current, next) => {
+     document.getElementById(`step${current}`).style.display = 'none';
+     document.getElementById(`step${next}`).style.display = 'block';
+     currentStep = next;
+   };
+
+   const prevStep = (current, prev) => {
+     document.getElementById(`step${current}`).style.display = 'none';
+     document.getElementById(`step${prev}`).style.display = 'block';
+     currentStep = prev;
+   };
+
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,10 +92,13 @@ const Body = () => {
     setVisibleAlert(true);
 
     const formData = {
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      phone: phone,
+       name: name,
+       email: email,
+       phone: phone,
+       DOB: date,
+       city: phone,
+       college: college,
+       password: password,
     };
 
     try {
@@ -116,18 +160,14 @@ const Body = () => {
           if (scrollPosition < 1000) {
             background.style.position = "sticky";
             background.style.top = "0px";
-            background.style.backgroundSize = `${100 + scrollPosition / 120}% ${
-              100 + scrollPosition / 120
-            }%`;
-            text.style.backdropFilter = `brightness(${
-              100 + (70 * (scrollPosition - 333)) / 667
-            }%)`;
+               background.style.backgroundSize = `${100 + scrollPosition / 120}% ${100 + scrollPosition / 120
+               }%`;
+             text.style.backdropFilter = `brightness(${100 + (70 * (scrollPosition - 333)) / 667
+               }%)`;
 
-            auroratext.style.cssText = `top:${
-              35 - (10 * scrollPosition) / 667
-            }%;transform:scale(${
-              1 - (0.2 * scrollPosition) / 667
-            });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
+             auroratext.style.cssText = `top:${35 - (10 * scrollPosition) / 667
+               }%;transform:scale(${1 - (0.2 * scrollPosition) / 667
+               });color:rgba(255,2555,255,${1 - (2 * scrollPosition) / 667})`;
             after_text.style.cssText = `top:${Math.max(
               35,
               51 - (16 * (scrollPosition - 333)) / 334
